@@ -1,11 +1,19 @@
 import React from 'react';
 import { usePlayer } from '../context/PlayerContext';
-import { Music2, Heart, Mic2, Plus, Sparkles } from 'lucide-react';
+import { Music2, Heart, PenTool, Plus, RotateCcw, Globe } from 'lucide-react';
 
 export const TopNav: React.FC = () => {
-  const { activeTab, setActiveTab, favorites, setShowAddSong, setSelectedArtist } = usePlayer();
+  const {
+    activeTab,
+    setActiveTab,
+    favorites,
+    setShowAddSong,
+    setSelectedArtist,
+    resetDefaultCatalog,
+    setShowWebsiteModal
+  } = usePlayer();
 
-  const handleNavClick = (tab: 'home' | 'songs' | 'artists' | 'favorites') => {
+  const handleNavClick = (tab: 'home' | 'songs' | 'artists' | 'favorites' | 'writer') => {
     setActiveTab(tab);
     if (tab !== 'artists') {
       setSelectedArtist(null);
@@ -32,22 +40,22 @@ export const TopNav: React.FC = () => {
         </div>
       </div>
 
-      {/* Zone 2: Navigation Links (Single-line controls) */}
+      {/* Zone 2: Navigation Links */}
       <nav className="hidden sm:flex items-center gap-1.5 md:gap-2">
         <button
           onClick={() => handleNavClick('home')}
-          className={`px-3.5 py-1.5 rounded-lg text-xs md:text-sm font-semibold transition-colors whitespace-nowrap ${
+          className={`px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold transition-colors whitespace-nowrap ${
             activeTab === 'home'
               ? 'bg-white/10 text-[#1DB954] shadow-sm'
               : 'text-zinc-400 hover:text-white hover:bg-white/5'
           }`}
         >
-          പ്രധാന പേജ് (Home)
+          ഹോം (Home)
         </button>
 
         <button
           onClick={() => handleNavClick('songs')}
-          className={`px-3.5 py-1.5 rounded-lg text-xs md:text-sm font-semibold transition-colors whitespace-nowrap ${
+          className={`px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold transition-colors whitespace-nowrap ${
             activeTab === 'songs'
               ? 'bg-white/10 text-[#1DB954] shadow-sm'
               : 'text-zinc-400 hover:text-white hover:bg-white/5'
@@ -58,7 +66,7 @@ export const TopNav: React.FC = () => {
 
         <button
           onClick={() => handleNavClick('artists')}
-          className={`px-3.5 py-1.5 rounded-lg text-xs md:text-sm font-semibold transition-colors whitespace-nowrap ${
+          className={`px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold transition-colors whitespace-nowrap ${
             activeTab === 'artists'
               ? 'bg-white/10 text-[#1DB954] shadow-sm'
               : 'text-zinc-400 hover:text-white hover:bg-white/5'
@@ -68,8 +76,20 @@ export const TopNav: React.FC = () => {
         </button>
 
         <button
+          onClick={() => handleNavClick('writer')}
+          className={`px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold transition-colors whitespace-nowrap flex items-center gap-1.5 ${
+            activeTab === 'writer'
+              ? 'bg-white/10 text-emerald-400 shadow-sm'
+              : 'text-zinc-400 hover:text-white hover:bg-white/5'
+          }`}
+        >
+          <PenTool className="w-3.5 h-3.5" />
+          <span>പാട്ടെഴുത്ത് (Writer)</span>
+        </button>
+
+        <button
           onClick={() => handleNavClick('favorites')}
-          className={`px-3.5 py-1.5 rounded-lg text-xs md:text-sm font-semibold transition-colors whitespace-nowrap flex items-center gap-1.5 ${
+          className={`px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold transition-colors whitespace-nowrap flex items-center gap-1.5 ${
             activeTab === 'favorites'
               ? 'bg-white/10 text-rose-400 shadow-sm'
               : 'text-zinc-400 hover:text-white hover:bg-white/5'
@@ -80,8 +100,30 @@ export const TopNav: React.FC = () => {
         </button>
       </nav>
 
-      {/* Zone 3: Primary Action */}
+      {/* Zone 3: Primary Action & Data Controls */}
       <div className="flex items-center gap-2">
+        <button
+          onClick={() => setShowWebsiteModal(true)}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs font-semibold border border-white/10 active:scale-95 transition-all"
+          title="ലൈവ് വെബ്സൈറ്റ് ലിങ്ക് കാണുക & കോപ്പി ചെയ്യുക"
+        >
+          <Globe className="w-3.5 h-3.5 text-[#1DB954]" />
+          <span className="hidden sm:inline">വെബ്സൈറ്റ് ലിങ്ക്</span>
+        </button>
+
+        <button
+          onClick={() => {
+            if (confirm('മുൻപുണ്ടായിരുന്ന എല്ലാ പാട്ടുകളും കലാകാരന്മാരെയും തിരിച്ചെടുക്കണോ? (Restore default songs & artists)')) {
+              resetDefaultCatalog();
+              alert('എല്ലാ ഗാനങ്ങളും കലാകാരന്മാരും പുനഃസ്ഥാപിച്ചു!');
+            }
+          }}
+          className="p-2 rounded-full text-zinc-400 hover:text-white hover:bg-white/10 transition-colors hidden md:inline-flex"
+          title="യഥാർത്ഥ ഗാനങ്ങൾ പുനഃസ്ഥാപിക്കുക (Restore Default Songs)"
+        >
+          <RotateCcw className="w-4 h-4 text-[#1DB954]" />
+        </button>
+
         <button
           onClick={() => setShowAddSong(true)}
           className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#1DB954] text-black text-xs md:text-sm font-bold shadow-lg shadow-[#1DB954]/20 hover:bg-[#1ed760] active:scale-95 transition-all whitespace-nowrap"

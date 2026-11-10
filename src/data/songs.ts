@@ -1,4 +1,4 @@
-import { Artist, Song } from '../types';
+import { Artist, Song, WrittenSong } from '../types';
 
 export const INITIAL_ARTISTS: Artist[] = [
   {
@@ -8,6 +8,22 @@ export const INITIAL_ARTISTS: Artist[] = [
     img: 'https://i.postimg.cc/ZKgJNNVz/download-(9).jpg',
     description: 'ആത്മീയ ഗാനങ്ങളിലൂടെയും മദീന സ്നേഹ ഗീതങ്ങളിലൂടെയും ജനമനസ്സുകളിൽ ഇടംനേടിയ പ്രിയ ഗായകൻ.',
     songCount: 16
+  },
+  {
+    id: 'swalih',
+    name: 'Swalih Thodupuzha',
+    malayalamName: 'സ്വാലിഹ് തൊടുപുഴ',
+    img: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=600&q=80',
+    description: 'ഹൃദയത്തിൽ തൊടുന്ന ഭക്തിസാന്ദ്രമായ ഇശലുകളും മദ്ഹ് ഗാനങ്ങളും ആലപിക്കുന്ന പ്രശസ്ത ഗായകൻ.',
+    songCount: 4
+  },
+  {
+    id: 'shaheer',
+    name: 'Hafiz Shaheer',
+    malayalamName: 'ഹാഫിസ് ഷഹീർ',
+    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80',
+    description: 'മാപ്പിളപ്പാട്ടുകളുടെയും പ്രവാചക പ്രകീർത്തനങ്ങളുടെയും സ്വരമാധുരി.',
+    songCount: 3
   },
   {
     id: 'madheena',
@@ -22,8 +38,16 @@ export const INITIAL_ARTISTS: Artist[] = [
     name: 'Classic Mappila & Qasida',
     malayalamName: 'ക്ലാസിക് മാപ്പിള & ഖസീദ',
     img: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80',
-    description: 'കേരളത്തിലെ പാരമ്പര്യ ഇശലുകളും ഖസീദത്തുൽ ബുർദയും ഇശൽ വിരുന്നും.',
+    description: 'മോയിൻകുട്ടി വൈദ്യരുടെ ബദർ പടപ്പാട്ടും പാരമ്പര്യ ഇശലുകളും.',
     songCount: 4
+  },
+  {
+    id: 'duff',
+    name: 'Duff & Baith Ensemble',
+    malayalamName: 'ദഫ്മുട്ട് & ബൈത്ത് സംഘം',
+    img: 'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=600&q=80',
+    description: 'താളബദ്ധമായ ദഫ്മുട്ട് ഗാനങ്ങളും ആത്മീയ ബൈത്തുകളും.',
+    songCount: 3
   }
 ];
 
@@ -254,11 +278,113 @@ export const INITIAL_SONGS: Song[] = [
 ഈ വരികളിൽ അലിഞ്ഞു ചേരുന്നു.`
   },
 
-  // Additional New Songs (Madheena & Mappila Classics)
+  // Swalih Thodupuzha (സ്വാലിഹ് തൊടുപുഴ) Songs
+  {
+    id: 'st-1',
+    title: 'സ്വർഗ്ഗീയ പൂവായ ത്വാഹാ നബി (Swargeeya Poovaya)',
+    artist: 'Swalih Thodupuzha',
+    artistId: 'swalih',
+    url: 'https://image2url.com/r2/default/audio/1769836517858-791af2ca-6277-428c-83d3-8b88191d0eb2.mp3',
+    coverImg: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=600&q=80',
+    category: 'swalih',
+    duration: '04:20',
+    lyrics: `സ്വർഗ്ഗീയ പൂവായ ത്വാഹാ നബി...
+ഹൃദയങ്ങളിൽ കുളിർമഴ പെയ്ത പുണ്യ നബി...
+മദീനയുടെ മണമുള്ള പൂങ്കാവനത്തിൽ
+സദാ സലാമുകൾ ചൊല്ലി ഞങ്ങൾ ജീവിക്കുന്നു.`
+  },
+  {
+    id: 'st-2',
+    title: 'ഖൽബിൽ വിരിഞ്ഞൊരു മദീന (Qalbil Virinjoru)',
+    artist: 'Swalih Thodupuzha',
+    artistId: 'swalih',
+    url: 'https://image2url.com/r2/default/audio/1769836625572-04019cd2-a37a-483f-954a-73854ce87d22.mp3',
+    coverImg: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=600&q=80',
+    category: 'swalih',
+    duration: '03:50',
+    lyrics: `ഖൽബിൽ വിരിഞ്ഞൊരു മദീന പൂങ്കാറ്റേ...
+റസൂലുള്ളാഹിയുടെ പൂമുഖം കണ്ടുവോ...
+പാപിയായ ഈ ദാസന് ഒരു നോക്ക് തരുമോ
+യാ റഹ്മത്തുൽ ലിൽ ആലമീൻ.`
+  },
+  {
+    id: 'st-3',
+    title: 'റഹ്മാന്റെ ദൂതർ അഹമ്മദ് റസൂൽ',
+    artist: 'Swalih Thodupuzha',
+    artistId: 'swalih',
+    url: 'https://image2url.com/r2/default/audio/1769836788248-f41a19ce-d98d-4506-a407-4405ce9790e2.mp3',
+    coverImg: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=600&q=80',
+    category: 'swalih',
+    duration: '04:10',
+    lyrics: `റഹ്മാന്റെ ദൂതർ അഹമ്മദ് റസൂൽ വന്ന നാളിൽ
+ആകാശ ഭൂമികൾ സന്തോഷത്താൽ ആറാടി...
+അന്ധകാരങ്ങൾ നീങ്ങി സത്യദീനിന്റെ പുലരി വന്നു...
+സല്ലല്ലാഹു അലാ മുഹമ്മദ് സല്ലല്ലാഹു അലൈഹിവസല്ലം.`
+  },
+  {
+    id: 'st-4',
+    title: 'കരൾ നൊന്തു പാടിയ ഇശലുകൾ',
+    artist: 'Swalih Thodupuzha',
+    artistId: 'swalih',
+    url: 'https://image2url.com/r2/default/audio/1769836982595-1e28d1e8-650e-46f4-bd93-9e71a6b7d564.mp3',
+    coverImg: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=600&q=80',
+    category: 'swalih',
+    duration: '03:45',
+    lyrics: `കരൾ നൊന്തു പാടിയ ഇശലുകൾ മുഴുവൻ
+മുത്ത് നബിയുടെ ചാരത്തേക്ക് എത്തട്ടെ...
+അങ്ങയുടെ ശഫാഅത്ത് ലഭിക്കുന്ന ഭാഗ്യവാന്മാരിൽ
+ഞങ്ങളെയും കുടുംബത്തെയും ഉൾപ്പെടുത്തേണമേ റബ്ബേ.`
+  },
+
+  // Hafiz Shaheer (ഹാഫിസ് ഷഹീർ) Songs
+  {
+    id: 'hs-1',
+    title: 'മദീനത്തെ കിളികൾ (Madheenathe Kilikal)',
+    artist: 'Hafiz Shaheer',
+    artistId: 'shaheer',
+    url: 'https://image2url.com/r2/default/audio/1769835553806-6c166887-bc5b-4a31-b26b-2eb5a5e87834.mp3',
+    coverImg: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80',
+    category: 'shaheer',
+    duration: '04:05',
+    lyrics: `മദീനത്തെ കിളികൾ പാടുന്നു സദാ സലാം...
+റൗളയുടെ തണലിൽ പാറിപ്പറക്കും പറവകളേ...
+എന്റെയും ഒരു സലാം മുത്ത് നബിയോട് പറയുമോ
+ഞാനും കൊതിക്കുന്നു മദീനയിലെത്താൻ.`
+  },
+  {
+    id: 'hs-2',
+    title: 'നൂറുൽ ഹുദാ യാ മുസ്തഫാ',
+    artist: 'Hafiz Shaheer',
+    artistId: 'shaheer',
+    url: 'https://image2url.com/r2/default/audio/1769771784287-ec008311-4cdd-419f-9545-4d2e8b86fc8d.mp3',
+    coverImg: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80',
+    category: 'shaheer',
+    duration: '03:55',
+    lyrics: `നൂറുൽ ഹുദാ യാ മുസ്തഫാ സയ്യിദീ...
+അങ്ങയോടുള്ള ഇശ്ഖിൽ കത്തുന്ന ഖൽബുമായി
+ഞാൻ കാത്തിരിക്കുന്നു തിരുനോട്ടം കിട്ടുവാൻ...
+അസ്സലാമു അലൈക്ക യാ സയ്യിദൽ മുർസലീൻ.`
+  },
+  {
+    id: 'hs-3',
+    title: 'തിരുനബിയുടെ പുഞ്ചിരി (Thirunabiyude Punchiri)',
+    artist: 'Hafiz Shaheer',
+    artistId: 'shaheer',
+    url: 'https://image2url.com/r2/default/audio/1769836887953-35818a32-44db-4e3b-81c3-cbd0aeee1797.mp3',
+    coverImg: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80',
+    category: 'shaheer',
+    duration: '04:12',
+    lyrics: `തിരുനബിയുടെ പുഞ്ചിരി കണ്ട സ്വഹാബികൾ ഭാഗ്യവാന്മാർ...
+അവിടുത്തെ വചനങ്ങൾക്ക് കാതോർത്തവർ ധന്യർ...
+കണ്ണുകൊണ്ട് കണ്ടില്ലെങ്കിലും ഖൽബുകൊണ്ട് സ്നേഹിക്കുന്നു
+ഞങ്ങൾ അങ്ങയെ യാ റസൂലള്ളാഹ്.`
+  },
+
+  // Madheena Specials
   {
     id: 'new-1',
     title: 'മദീനയിലെ തെന്നലേ (Madheenayile Thennale)',
-    artist: 'Mubashir & Friends',
+    artist: 'Madheena Madeeh Specials',
     artistId: 'madheena',
     url: 'https://image2url.com/r2/default/audio/1769771784287-ec008311-4cdd-419f-9545-4d2e8b86fc8d.mp3',
     coverImg: 'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=600&q=80',
@@ -272,7 +398,7 @@ export const INITIAL_SONGS: Song[] = [
   {
     id: 'new-2',
     title: 'ത്വലഅൽ ബദ്റു അലൈനാ (Talaal Badru Alayna)',
-    artist: 'Traditional Qasida',
+    artist: 'Classic Mappila & Qasida',
     artistId: 'mappila',
     url: 'https://image2url.com/r2/default/audio/1769835553806-6c166887-bc5b-4a31-b26b-2eb5a5e87834.mp3',
     coverImg: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80',
@@ -286,7 +412,7 @@ export const INITIAL_SONGS: Song[] = [
   {
     id: 'new-3',
     title: 'അഴകേ മദീന പൂങ്കാവനം (Azhake Madheena)',
-    artist: 'Mappila Devotional Choir',
+    artist: 'Madheena Madeeh Specials',
     artistId: 'madheena',
     url: 'https://image2url.com/r2/default/audio/1769836517858-791af2ca-6277-428c-83d3-8b88191d0eb2.mp3',
     coverImg: 'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=600&q=80',
@@ -299,7 +425,7 @@ export const INITIAL_SONGS: Song[] = [
   {
     id: 'new-4',
     title: 'ഖസീദത്തുൽ ബുർദ (Qasidathul Burda)',
-    artist: 'Al Madeeh Ensemble',
+    artist: 'Classic Mappila & Qasida',
     artistId: 'mappila',
     url: 'https://image2url.com/r2/default/audio/1769836887953-35818a32-44db-4e3b-81c3-cbd0aeee1797.mp3',
     coverImg: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80',
@@ -313,14 +439,77 @@ export const INITIAL_SONGS: Song[] = [
   {
     id: 'new-5',
     title: 'ബദരീങ്ങളുടെ കാവൽ (Badriyyeen Baith)',
-    artist: 'Duff & Baith Group',
-    artistId: 'madheena',
+    artist: 'Duff & Baith Ensemble',
+    artistId: 'duff',
     url: 'https://image2url.com/r2/default/audio/1769837056994-64c233d6-9fef-4c56-b218-78b1dee92b53.mp3',
-    coverImg: 'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=600&q=80',
-    category: 'madheena',
+    coverImg: 'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=600&q=80',
+    category: 'duff',
     duration: '03:52',
     lyrics: `യാ അല്ലാഹ് യാ അല്ലാഹ്... ബദരീങ്ങളുടെ ബറക്കത്തിനാൽ കാക്കേണമേ...
 മുസ്ലിമീങ്ങൾക്ക് രക്ഷയേകിയ പുണ്യ ബദർ ശുഹദാക്കളുടെ സ്മരണയിൽ
 ഞങ്ങളുടെ ദുആകൾ നീ സ്വീകരിക്കേണമേ.`
+  },
+  {
+    id: 'duff-1',
+    title: 'മുഹിയുദ്ധീൻ മാല ബൈത്ത് (Muhiyudheen Mala)',
+    artist: 'Duff & Baith Ensemble',
+    artistId: 'duff',
+    url: 'https://image2url.com/r2/default/audio/1769837216205-4610d242-15ee-43f4-9efc-8123ae73b61c.mp3',
+    coverImg: 'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=600&q=80',
+    category: 'duff',
+    duration: '04:15',
+    lyrics: `അല്ലാഹുവിൻ തൃപ്പൊരുത്തം കൊണ്ട് ജീവിച്ച
+ഖുതുബുൽ അഖ്താബ് മുഹിയുദ്ധീൻ ശൈഖ് തങ്ങൾ...
+ബഗ്ദാദിൻ മണ്ണിൽ അന്ത്യവിശ്രമം കൊള്ളുന്ന
+പുണ്യ വലിയ്യേ ഞങ്ങളെയും കാക്കേണമേ.`
+  }
+];
+
+export const INITIAL_WRITTEN_SONGS: WrittenSong[] = [
+  {
+    id: 'written-1',
+    title: 'മദീനത്തെ പൂങ്കാറ്റ് (Madheenathe Poonkaattu)',
+    author: 'മുബഷിർ സ്നേഹിതൻ',
+    category: 'മദ്ഹ് ഗാനം',
+    ishalType: 'തൊങ്ങൽ ഇശൽ',
+    createdAt: '2026-11-09',
+    notes: 'റൗളയുടെ സൗന്ദര്യം വർണ്ണിക്കുന്ന ലളിതമായ വരികൾ.',
+    lyrics: `[പല്ലവി]
+മദീനത്തെ പൂങ്കാറ്റേ...
+റൗളയുടെ കുളിർമഴയേ...
+മുത്ത് നബിയുടെ ചാരത്തു ചെന്ന്
+എന്റെ സലാമൊന്നു ചൊല്ലുമോ നീ?
+
+[അനുപല്ലവി]
+കണ്ണീരൊഴുക്കി ഞാൻ കാത്തിരിപ്പൂ
+കൺകുളിർക്കെ ആ പൂമുഖം കാണുവാൻ
+പാപങ്ങൾ ചെയ്തൊരു ദാസനാണേ
+റഹ്മത്തിൻ സാഗരമേ കാക്കേണമേ...
+
+[ചരണം]
+പച്ച ഖുബ്ബ കണ്ടു കൊതിയാകുന്നു
+ആ പുണ്യ മണ്ണിൽ ഒരിടം വേണം
+ശഫാഅത്തിൻ നാളിൽ കൈപിടിക്കണേ
+യാ റസൂലള്ളാഹ് സയ്യിദീ...`
+  },
+  {
+    id: 'written-2',
+    title: 'ഇശ്ഖിന്റെ തീരത്ത് (Ishqinte Theerathu)',
+    author: 'ഇശൽ രചയിതാവ്',
+    category: 'മാപ്പിളപ്പാട്ട്',
+    ishalType: 'കമ്പ് ഇശൽ',
+    createdAt: '2026-11-09',
+    notes: 'പാരമ്പര്യ മാപ്പിളപ്പാട്ട് ശൈലിയിലുള്ള ഇശൽ.',
+    lyrics: `[പല്ലവി]
+ഇശ്ഖിന്റെ തീരത്ത് പൂവിട്ട പൂവേ
+മുഹമ്മദ് റസൂലേ മുത്തു നബിയേ...
+ആലം പടച്ച റബ്ബിന്റെ ദൂതരേ
+അങ്ങേക്കു നൽകുന്നു സദാ സലാം...
+
+[ചരണം]
+ത്വാഇഫിലെ കല്ലേറും സഹിച്ച ദൂതർ
+ക്ഷമയുടെ പാഠങ്ങൾ പകർന്നു തന്നു
+അന്ധകാരങ്ങളിൽ ദീപം കൊളുത്തി
+സത്യത്തിൻ പാതയിൽ നയിച്ചു തങ്ങൾ.`
   }
 ];

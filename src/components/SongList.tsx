@@ -9,26 +9,29 @@ import {
   Share2,
   Plus,
   Volume2,
-  Sparkles,
+  Trash2,
   Shuffle,
   Music2,
-  ArrowLeft
+  ArrowLeft,
+  RotateCcw
 } from 'lucide-react';
 
 export const SongList: React.FC = () => {
   const {
     filteredSongs,
+    allSongs,
     currentSong,
     isPlaying,
     playSong,
     togglePlayPause,
     isFavorite,
     toggleFavorite,
+    deleteSong,
+    resetDefaultCatalog,
     selectedArtist,
     setSelectedArtist,
     setShowLyrics,
     setShowAddSong,
-    setIsPlayerExpanded,
     toggleShuffle,
     activeTab
   } = usePlayer();
@@ -57,6 +60,14 @@ export const SongList: React.FC = () => {
     } else {
       await navigator.clipboard.writeText(`${shareText}\n${window.location.href}`);
       alert(`ലിങ്ക് കോപ്പി ചെയ്തു: ${song.title}`);
+    }
+  };
+
+  const handleDeleteSong = (e: React.MouseEvent, song: Song) => {
+    e.stopPropagation();
+    const confirmed = window.confirm(`"${song.title}" എന്ന ഗാനം തീർച്ചയായും ഡിലീറ്റ് ചെയ്യണമെന്നുറപ്പാണോ?`);
+    if (confirmed) {
+      deleteSong(song.id);
     }
   };
 
@@ -176,15 +187,29 @@ export const SongList: React.FC = () => {
           </div>
           <h3 className="text-base font-bold text-white">ഗാനങ്ങളൊന്നും കണ്ടെത്തിയില്ല</h3>
           <p className="text-xs text-zinc-400 max-w-sm mx-auto">
-            നിങ്ങൾ തിരഞ്ഞ വാക്ക് പരിശോധിക്കുക, അല്ലെങ്കിൽ നിങ്ങളുടെ സ്വന്തം പാട്ടുകൾ ചേർക്കൂ.
+            ഡിലീറ്റ് ചെയ്തതുകൊണ്ടോ തിരഞ്ഞ വാക്ക് കാരണമോ പാട്ടുകൾ കാണാനില്ലെങ്കിൽ പുനഃസ്ഥാപിക്കാം.
           </p>
-          <button
-            onClick={() => setShowAddSong(true)}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#1DB954] text-black text-xs font-bold hover:scale-105 transition-all shadow-md mt-2"
-          >
-            <Plus className="w-4 h-4" />
-            <span>പുതിയ പാട്ട് ചേർക്കുക</span>
-          </button>
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <button
+              onClick={() => setShowAddSong(true)}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#1DB954] text-black text-xs font-bold hover:scale-105 transition-all shadow-md"
+            >
+              <Plus className="w-4 h-4" />
+              <span>പുതിയ പാട്ട് ചേർക്കുക</span>
+            </button>
+
+            <button
+              onClick={() => {
+                if (confirm('മുൻപുണ്ടായിരുന്ന എല്ലാ പാട്ടുകളും തിരിച്ചെടുക്കണോ?')) {
+                  resetDefaultCatalog();
+                }
+              }}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/10 text-zinc-200 text-xs font-semibold hover:bg-white/20 transition-all border border-white/10"
+            >
+              <RotateCcw className="w-3.5 h-3.5 text-[#1DB954]" />
+              <span>പഴയ പാട്ടുകൾ തിരിച്ചെടുക്കുക</span>
+            </button>
+          </div>
         </div>
       )}
 
@@ -301,6 +326,15 @@ export const SongList: React.FC = () => {
                   title="ഷെയർ ചെയ്യുക"
                 >
                   <Share2 className="w-4 h-4" />
+                </button>
+
+                {/* Delete Button (ഡിലീറ്റ്) */}
+                <button
+                  onClick={e => handleDeleteSong(e, song)}
+                  className="p-2 rounded-full text-zinc-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+                  title="ഈ പാട്ട് ഡിലീറ്റ് ചെയ്യുക (Delete Song)"
+                >
+                  <Trash2 className="w-4 h-4" />
                 </button>
 
                 {/* Duration or Play state */}

@@ -5,16 +5,19 @@ import { MobileBottomNav } from './components/MobileBottomNav';
 import { SearchBar } from './components/SearchBar';
 import { ArtistGrid } from './components/ArtistGrid';
 import { SongList } from './components/SongList';
+import { LyricsWriter } from './components/LyricsWriter';
 import { MiniPlayer } from './components/MiniPlayer';
 import { PlayerView } from './components/PlayerView';
 import { AddSongModal } from './components/AddSongModal';
+import { AddArtistModal } from './components/AddArtistModal';
 import { SleepTimerModal } from './components/SleepTimerModal';
 import { LyricsModal } from './components/LyricsModal';
 import { QueueModal } from './components/QueueModal';
-import { Play, Sparkles, Heart, Plus, Music2, Headphones, Radio } from 'lucide-react';
+import { WebsiteLinkModal } from './components/WebsiteLinkModal';
+import { Play, Sparkles, Heart, Plus, Music2, Headphones, Radio, PenTool, BookOpen } from 'lucide-react';
 
 const MainContent: React.FC = () => {
-  const { activeTab, setActiveTab, allSongs, playSong, setShowAddSong, favorites } = usePlayer();
+  const { activeTab, setActiveTab, allSongs, playSong, setShowAddSong, writtenSongs } = usePlayer();
 
   const featuredSong = allSongs[0]; // Twaifinte Veedikal
 
@@ -25,8 +28,8 @@ const MainContent: React.FC = () => {
 
       {/* Main Content Area */}
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-        {/* Search Bar on all pages for quick access */}
-        <SearchBar />
+        {/* Search Bar on all pages except the full writer workspace */}
+        {activeTab !== 'writer' && <SearchBar />}
 
         {/* HOME VIEW */}
         {activeTab === 'home' && (
@@ -44,7 +47,7 @@ const MainContent: React.FC = () => {
                 </h1>
 
                 <p className="text-sm sm:text-base text-zinc-300 font-medium leading-relaxed">
-                  മുബഷിർ പെരിന്തട്ടരിയുടെ സ്വരമാധുരിയിൽ ഹൃദയം തൊടുന്ന ആത്മീയ ഇശലുകൾ. പുതിയ കൺട്രോളുകളോടെ ആസ്വദിക്കൂ.
+                  മുബഷിർ പെരിന്തട്ടരി, സ്വാലിഹ് തൊടുപുഴ, ഹാഫിസ് ഷഹീർ എന്നിവരുടെ സ്വരമാധുരിയിൽ ഹൃദയം തൊടുന്ന ആത്മീയ ഇശലുകൾ.
                 </p>
 
                 <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -57,11 +60,19 @@ const MainContent: React.FC = () => {
                   </button>
 
                   <button
+                    onClick={() => setActiveTab('writer')}
+                    className="flex items-center gap-2 px-5 py-3 rounded-full bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 font-semibold text-sm border border-emerald-500/30 active:scale-95 transition-all"
+                  >
+                    <PenTool className="w-4 h-4 text-[#1DB954]" />
+                    <span>പാട്ടെഴുത്തുപുര തുറക്കുക</span>
+                  </button>
+
+                  <button
                     onClick={() => setShowAddSong(true)}
-                    className="flex items-center gap-2 px-5 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white font-semibold text-sm border border-white/10 active:scale-95 transition-all"
+                    className="flex items-center gap-2 px-4 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white font-semibold text-sm border border-white/10 active:scale-95 transition-all"
                   >
                     <Plus className="w-4 h-4" />
-                    <span>പുതിയ പാട്ട് ചേർക്കുക</span>
+                    <span>പാട്ട് ചേർക്കുക</span>
                   </button>
                 </div>
               </div>
@@ -76,6 +87,31 @@ const MainContent: React.FC = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#0d0d0d]/80 to-[#12261b]" />
               </div>
+            </div>
+
+            {/* Songwriter Quick Callout Banner */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-emerald-950/30 via-[#181818] to-[#121212] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-3.5">
+                <div className="w-11 h-11 rounded-2xl bg-[#1DB954]/15 border border-[#1DB954]/30 flex items-center justify-center text-[#1DB954] shrink-0">
+                  <PenTool className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-sm sm:text-base font-bold text-white">
+                    നിങ്ങൾക്കൊരു പാട്ടെഴുതാൻ ആഗ്രഹമുണ്ടോ?
+                  </h3>
+                  <p className="text-xs text-zinc-400">
+                    ഇശലുകളും പല്ലവി-ചരണങ്ങളും ക്രമീകരിച്ച് സ്വന്തം വരികൾ രചിക്കാം, വോയിസ് ഹമ്മിംഗ് റെക്കോർഡ് ചെയ്യാം ({writtenSongs.length} രചനകൾ).
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setActiveTab('writer')}
+                className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs whitespace-nowrap self-start sm:self-auto transition-colors flex items-center gap-1.5"
+              >
+                <span>എഴുതാൻ തുടങ്ങാം</span>
+                <span>→</span>
+              </button>
             </div>
 
             {/* Artists Section */}
@@ -102,6 +138,13 @@ const MainContent: React.FC = () => {
           </div>
         )}
 
+        {/* SONGWRITER STUDIO VIEW */}
+        {activeTab === 'writer' && (
+          <div className="space-y-6">
+            <LyricsWriter />
+          </div>
+        )}
+
         {/* FAVORITES VIEW */}
         {activeTab === 'favorites' && (
           <div className="space-y-6">
@@ -121,9 +164,11 @@ const MainContent: React.FC = () => {
 
       {/* Modals */}
       <AddSongModal />
+      <AddArtistModal />
       <SleepTimerModal />
       <LyricsModal />
       <QueueModal />
+      <WebsiteLinkModal />
     </div>
   );
 };

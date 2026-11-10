@@ -1,9 +1,9 @@
 import React from 'react';
 import { usePlayer } from '../context/PlayerContext';
-import { ListMusic, X, Play, Music2 } from 'lucide-react';
+import { ListMusic, X, Play, Trash2 } from 'lucide-react';
 
 export const QueueModal: React.FC = () => {
-  const { showQueue, setShowQueue, playlist, currentSong, playSong, isPlaying } = usePlayer();
+  const { showQueue, setShowQueue, playlist, currentSong, playSong, isPlaying, deleteSong } = usePlayer();
 
   if (!showQueue) return null;
 
@@ -37,7 +37,7 @@ export const QueueModal: React.FC = () => {
               <div
                 key={`${song.id}-${idx}`}
                 onClick={() => playSong(song)}
-                className={`flex items-center justify-between gap-3 p-2.5 rounded-xl transition-colors cursor-pointer ${
+                className={`flex items-center justify-between gap-3 p-2.5 rounded-xl transition-colors cursor-pointer group ${
                   isCurrent
                     ? 'bg-[#1DB954]/15 border border-[#1DB954]/40 text-[#1DB954]'
                     : 'bg-white/5 hover:bg-white/10 text-white border border-transparent'
@@ -63,15 +63,30 @@ export const QueueModal: React.FC = () => {
                   </div>
                 </div>
 
-                {isCurrent && isPlaying ? (
-                  <div className="flex items-end gap-0.5 h-3">
-                    <span className="w-0.5 bg-[#1DB954] h-full animate-[bounce_0.6s_infinite]" />
-                    <span className="w-0.5 bg-[#1DB954] h-2/3 animate-[bounce_0.8s_infinite]" />
-                    <span className="w-0.5 bg-[#1DB954] h-4/5 animate-[bounce_0.5s_infinite]" />
-                  </div>
-                ) : (
-                  <Play className="w-3.5 h-3.5 text-zinc-400 opacity-0 group-hover:opacity-100" />
-                )}
+                <div className="flex items-center gap-2">
+                  {isCurrent && isPlaying ? (
+                    <div className="flex items-end gap-0.5 h-3">
+                      <span className="w-0.5 bg-[#1DB954] h-full animate-[bounce_0.6s_infinite]" />
+                      <span className="w-0.5 bg-[#1DB954] h-2/3 animate-[bounce_0.8s_infinite]" />
+                      <span className="w-0.5 bg-[#1DB954] h-4/5 animate-[bounce_0.5s_infinite]" />
+                    </div>
+                  ) : (
+                    <Play className="w-3.5 h-3.5 text-zinc-400 opacity-0 group-hover:opacity-100" />
+                  )}
+
+                  <button
+                    onClick={e => {
+                      e.stopPropagation();
+                      if (confirm(`'${song.title}' ഡിലീറ്റ് ചെയ്യണോ?`)) {
+                        deleteSong(song.id);
+                      }
+                    }}
+                    className="p-1 rounded-full text-zinc-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors opacity-0 group-hover:opacity-100"
+                    title="ഡിലീറ്റ് ചെയ്യുക"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
               </div>
             );
           })}

@@ -3,10 +3,11 @@ import { usePlayer } from '../context/PlayerContext';
 import { X, Upload, Music, Plus, Check } from 'lucide-react';
 
 export const AddSongModal: React.FC = () => {
-  const { showAddSong, setShowAddSong, addCustomSong } = usePlayer();
+  const { showAddSong, setShowAddSong, addCustomSong, artists } = usePlayer();
 
   const [title, setTitle] = useState('');
-  const [artist, setArtist] = useState('Mubashir Perinthattiri');
+  const [selectedArtistId, setSelectedArtistId] = useState('mubashir');
+  const [customArtistName, setCustomArtistName] = useState('');
   const [url, setUrl] = useState('');
   const [coverImg, setCoverImg] = useState('https://i.postimg.cc/ZKgJNNVz/download-(9).jpg');
   const [lyrics, setLyrics] = useState('');
@@ -33,12 +34,20 @@ export const AddSongModal: React.FC = () => {
       return;
     }
 
+    const matchedArtist = artists.find(a => a.id === selectedArtistId);
+    const finalArtistName =
+      selectedArtistId === 'custom'
+        ? customArtistName.trim() || 'മറ്റ് ഗായകർ'
+        : matchedArtist?.name || 'Mubashir Perinthattiri';
+    const finalCover =
+      matchedArtist?.img || coverImg.trim() || 'https://i.postimg.cc/ZKgJNNVz/download-(9).jpg';
+
     addCustomSong({
       title: title.trim(),
-      artist: artist.trim() || 'Mubashir Perinthattiri',
-      artistId: 'custom',
+      artist: finalArtistName,
+      artistId: selectedArtistId,
       url: url.trim(),
-      coverImg: coverImg.trim() || 'https://i.postimg.cc/ZKgJNNVz/download-(9).jpg',
+      coverImg: finalCover,
       category: 'custom',
       lyrics: lyrics.trim() || undefined
     });
@@ -86,18 +95,34 @@ export const AddSongModal: React.FC = () => {
             />
           </div>
 
-          {/* Artist Name */}
+          {/* Artist Select */}
           <div>
             <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
-              ഗായകൻ / ആർട്ടിസ്റ്റ് (Artist)
+              ഗായകൻ / കലാകാരൻ (Artist)
             </label>
-            <input
-              type="text"
-              value={artist}
-              onChange={e => setArtist(e.target.value)}
-              placeholder="Mubashir Perinthattiri"
-              className="w-full bg-[#1e1e1e] border border-white/10 rounded-xl px-3.5 py-2.5 text-white placeholder-zinc-500 focus:outline-none focus:border-[#1DB954]"
-            />
+            <select
+              value={selectedArtistId}
+              onChange={e => setSelectedArtistId(e.target.value)}
+              className="w-full bg-[#1e1e1e] border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs focus:outline-none focus:border-[#1DB954]"
+            >
+              {artists.map(art => (
+                <option key={art.id} value={art.id}>
+                  {art.malayalamName || art.name} ({art.name})
+                </option>
+              ))}
+              <option value="custom">മറ്റ് പുതിയ ഗായകൻ (Enter Custom Name)</option>
+            </select>
+
+            {selectedArtistId === 'custom' && (
+              <input
+                type="text"
+                required
+                value={customArtistName}
+                onChange={e => setCustomArtistName(e.target.value)}
+                placeholder="ഗായകന്റെ പേര് ടൈപ്പ് ചെയ്യുക"
+                className="w-full mt-2 bg-[#1e1e1e] border border-white/10 rounded-xl px-3.5 py-2 text-white placeholder-zinc-500 focus:outline-none focus:border-[#1DB954] text-xs"
+              />
+            )}
           </div>
 
           {/* Audio Source: File Upload OR URL */}

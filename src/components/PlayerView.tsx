@@ -19,7 +19,8 @@ import {
   ListMusic,
   Share2,
   Gauge,
-  Sparkles
+  Sparkles,
+  Trash2
 } from 'lucide-react';
 
 export const PlayerView: React.FC = () => {
@@ -46,6 +47,7 @@ export const PlayerView: React.FC = () => {
     setPlaybackRate,
     isFavorite,
     toggleFavorite,
+    deleteSong,
     sleepTimerSeconds,
     setShowSleepTimerModal,
     setShowLyrics,
@@ -136,6 +138,17 @@ export const PlayerView: React.FC = () => {
                   : 'text-zinc-300'
               }`}
             />
+          </button>
+          <button
+            onClick={() => {
+              if (confirm(`'${currentSong.title}' എന്ന ഗാനം ഡിലീറ്റ് ചെയ്യണമെന്നുറപ്പാണോ?`)) {
+                deleteSong(currentSong.id);
+              }
+            }}
+            className="p-2.5 rounded-full bg-white/5 hover:bg-rose-500/20 active:scale-95 transition-all text-zinc-400 hover:text-rose-400"
+            title="ഈ പാട്ട് ഡിലീറ്റ് ചെയ്യുക (Delete Song)"
+          >
+            <Trash2 className="w-5 h-5" />
           </button>
         </div>
       </div>

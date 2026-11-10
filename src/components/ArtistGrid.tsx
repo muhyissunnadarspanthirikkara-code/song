@@ -1,7 +1,7 @@
 import React from 'react';
 import { usePlayer } from '../context/PlayerContext';
 import { Artist } from '../types';
-import { Play, Check, Music, Sparkles } from 'lucide-react';
+import { Play, Check, Music, UserPlus, Trash2, RotateCcw } from 'lucide-react';
 
 export const ArtistGrid: React.FC = () => {
   const {
@@ -10,7 +10,10 @@ export const ArtistGrid: React.FC = () => {
     setSelectedArtist,
     setActiveTab,
     allSongs,
-    playSong
+    playSong,
+    setShowAddArtist,
+    deleteArtist,
+    resetDefaultCatalog
   } = usePlayer();
 
   const handleSelectArtist = (artist: Artist) => {
@@ -26,18 +29,58 @@ export const ArtistGrid: React.FC = () => {
     }
   };
 
+  const handleDeleteArtist = (e: React.MouseEvent, artist: Artist) => {
+    e.stopPropagation();
+    const confirmed = window.confirm(
+      `"${artist.malayalamName || artist.name}" എന്ന കലാകാരനെ ലിസ്റ്റിൽ നിന്ന് ഒഴിവാക്കണമെന്നുറപ്പാണോ?`
+    );
+    if (confirmed) {
+      deleteArtist(artist.id);
+    }
+  };
+
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h2 className="text-xl md:text-2xl font-bold text-white tracking-tight">
             ഗായകരും ഇശലുകളും
           </h2>
           <p className="text-xs md:text-sm text-zinc-400 mt-0.5">
-            കലാകാരന്മാരെ തിരഞ്ഞെടുത്ത് അവരുടെ എല്ലാ ഗാനങ്ങളും ആസ്വദിക്കൂ
+            കലാകാരന്മാരെ തിരഞ്ഞെടുക്കുക, പുതിയ കലാകാരന്മാരെ ചേർക്കുകയോ ആവശ്യമില്ലാത്തവരെ ഒഴിവാക്കുകയോ ചെയ്യാം
           </p>
         </div>
+
+        <div className="flex items-center gap-2 self-start sm:self-auto">
+          <button
+            onClick={() => setShowAddArtist(true)}
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#1DB954] text-black text-xs font-bold hover:bg-[#1ed760] active:scale-95 transition-all shadow-md shadow-[#1DB954]/20"
+          >
+            <UserPlus className="w-3.5 h-3.5 stroke-[2.5]" />
+            <span>കലാകാരനെ ചേർക്കുക</span>
+          </button>
+        </div>
       </div>
+
+      {artists.length === 0 && (
+        <div className="text-center py-12 px-4 rounded-2xl bg-[#141414] border border-white/5 space-y-3">
+          <h3 className="text-base font-bold text-white">കലാകാരന്മാരൊന്നും അവശേഷിക്കുന്നില്ല</h3>
+          <p className="text-xs text-zinc-400 max-w-sm mx-auto">
+            എല്ലാ കലാകാരന്മാരെയും ഡിലീറ്റ് ചെയ്തിട്ടുണ്ടെങ്കിൽ പഴയ ഗായകരെ പുനഃസ്ഥാപിക്കാം.
+          </p>
+          <button
+            onClick={() => {
+              if (confirm('മുൻപുണ്ടായിരുന്ന എല്ലാ കലാകാരന്മാരെയും തിരിച്ചു കൊണ്ടുവരണോ?')) {
+                resetDefaultCatalog();
+              }
+            }}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/10 text-zinc-200 text-xs font-semibold hover:bg-white/20 transition-all border border-white/10"
+          >
+            <RotateCcw className="w-3.5 h-3.5 text-[#1DB954]" />
+            <span>പഴയ കലാകാരന്മാരെ തിരിച്ചെടുക്കുക</span>
+          </button>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {artists.map(artist => {
@@ -87,13 +130,23 @@ export const ArtistGrid: React.FC = () => {
                   </div>
                 </div>
 
-                <button
-                  onClick={e => handlePlayArtist(e, artist)}
-                  className="w-10 h-10 rounded-full bg-[#1DB954] text-black flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all opacity-90 sm:opacity-0 sm:group-hover:opacity-100 shrink-0"
-                  title="എല്ലാ പാട്ടുകളും കേൾക്കുക"
-                >
-                  <Play className="w-4 h-4 fill-black translate-x-0.5" />
-                </button>
+                <div className="flex items-center gap-1 shrink-0">
+                  <button
+                    onClick={e => handlePlayArtist(e, artist)}
+                    className="w-9 h-9 rounded-full bg-[#1DB954] text-black flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all opacity-90 sm:opacity-0 sm:group-hover:opacity-100"
+                    title="എല്ലാ പാട്ടുകളും കേൾക്കുക"
+                  >
+                    <Play className="w-4 h-4 fill-black translate-x-0.5" />
+                  </button>
+
+                  <button
+                    onClick={e => handleDeleteArtist(e, artist)}
+                    className="w-8 h-8 rounded-full text-zinc-500 hover:text-rose-400 hover:bg-rose-500/10 flex items-center justify-center transition-colors"
+                    title="ഈ കലാകാരനെ ഡിലീറ്റ് ചെയ്യുക"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
 
               {artist.description && (

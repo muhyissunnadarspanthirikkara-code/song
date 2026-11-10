@@ -15,8 +15,11 @@ export const SearchBar: React.FC = () => {
   const categories = [
     { id: 'all', label: 'എല്ലാ ഗാനങ്ങളും' },
     { id: 'mubashir', label: 'മുബഷിർ ഉസ്താദ്' },
+    { id: 'swalih', label: 'സ്വാലിഹ് തൊടുപുഴ' },
+    { id: 'shaheer', label: 'ഹാഫിസ് ഷഹീർ' },
     { id: 'madheena', label: 'മദീന മദീഹ്' },
     { id: 'mappila', label: 'മാപ്പിളപ്പാട്ടുകൾ' },
+    { id: 'duff', label: 'ദഫ്മുട്ട് & ബൈത്ത്' },
     { id: 'custom', label: 'പുതിയവ (Custom)' }
   ];
 
