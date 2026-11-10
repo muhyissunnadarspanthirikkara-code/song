@@ -1,0 +1,6 @@
+{
+  "name": "Kelkaam MDH - Malayalam Islamic & Mappila Song Player",
+  "description": "Listen to soulful Malayalam Islamic songs, Mappila songs, and hymns by Mubashir Perinthattiri and more with custom playback controls, lyrics, playlists, and offline support.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
